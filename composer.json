@@ -1,0 +1,21 @@
+{
+    "name": "qla/customldap",
+    "description": "package for qla ldap login",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "l0rraine",
+            "email": "idn.lee@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "adldap2/adldap2": "^7.0",
+        "adldap2/adldap2-laravel": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Qla\\CustomLdap\\": "src"
+        }
+    }
+}
