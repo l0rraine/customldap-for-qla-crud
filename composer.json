@@ -1,5 +1,5 @@
 {
-    "name": "qla/customldap",
+    "name": "qla/ldaplogin",
     "description": "package for qla ldap login",
     "license": "MIT",
     "authors": [
@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Qla\\CustomLdap\\": "src"
+            "Qla\\LdapLogin\\": "src"
         }
     }
 }

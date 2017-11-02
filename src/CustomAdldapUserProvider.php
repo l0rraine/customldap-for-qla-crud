@@ -6,7 +6,7 @@
  * Time: 14:35
  */
 
-namespace Qla\CustomLdap;
+namespace Qla\LdapLogin;
 
 
 use Adldap\Laravel\Auth\DatabaseUserProvider;

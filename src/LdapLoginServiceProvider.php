@@ -1,6 +1,6 @@
 <?php
 
-namespace Qla\CustomLdap;
+namespace Qla\LdapLogin;
 
 use Illuminate\Support\Facades\Auth;
 use Adldap\Laravel\AdldapAuthServiceProvider;
@@ -12,7 +12,7 @@ use Adldap\Laravel\Auth\NoDatabaseUserProvider;
 use Illuminate\Contracts\Hashing\Hasher;
 
 
-class CustomLdapServiceProvider extends AdldapAuthServiceProvider
+class LdapLoginServiceProvider extends AdldapAuthServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -22,19 +22,20 @@ class CustomLdapServiceProvider extends AdldapAuthServiceProvider
     public function boot()
     {
 
-
         $this->mergeConfigFrom(__DIR__ . '/config/qla/adldap_auth.php', 'adldap_auth');
+        $this->mergeConfigFrom(__DIR__ . '/config/qla/adldap.php', 'adldap');
+        $this->mergeConfigFrom(__DIR__ . '/config/qla/ldap_login.php', 'ldap_login');
 
 
         // - first the published views (in case they have any changes)
-        $this->loadViewsFrom(resource_path('views/vendor/qla/customldap'), 'customldap');
+        $this->loadViewsFrom(resource_path('views/vendor/qla/ldaplogin'), 'ldaplogin');
         // - then the stock views that come with the package, in case a published view might be missing
-        $this->loadViewsFrom(realpath(__DIR__ . '/resources/views'), 'customldap');
+        $this->loadViewsFrom(realpath(__DIR__ . '/resources/views'), 'ldaplogin');
 
         // Add publishable configuration.
         $this->publishes([
             __DIR__ . '/config/qla' => config_path('qla'),
-            __DIR__ . '/resources/views' => resource_path('views/vendor/qla/customldap'),
+            __DIR__ . '/resources/views' => resource_path('views/vendor/qla/ldaplogin'),
         ], 'qla');
 
 
@@ -55,6 +56,27 @@ class CustomLdapServiceProvider extends AdldapAuthServiceProvider
         }
     }
 
+    public static function setupRoutes()
+    {
+
+
+        $group = [
+            'namespace' => 'Qla\LdapLogin\app\Http\Controllers',
+            'prefix' => config('qla.adminpanel.url_prefix')];
+
+
+        \Route::group($group, function () {
+            \Route::get('login', 'LoginController@showLoginForm')
+                ->middleware('admin.referer','web')
+                ->name('Crud.Admin.login');
+
+            \Route::post('login', 'LoginController@login');
+            \Route::get('logout', 'LoginController@logout');
+        });
+
+
+    }
+
     /**
      * Register the application services.
      *
@@ -62,6 +84,7 @@ class CustomLdapServiceProvider extends AdldapAuthServiceProvider
      */
     public function register()
     {
+        self::setupRoutes();
         $this->app->register(\Adldap\Laravel\AdldapServiceProvider::class);
     }
 

@@ -13,10 +13,10 @@
                     <bold>请登录</bold>
                 </div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ route('Crud.Admin.login') }}">
                         {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                        <div class="form-group{{ isset($errors) && $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">中石化邮箱</label>
 
                             <div class="col-md-6">
@@ -27,23 +27,23 @@
                                         .com</span>
                                 </div>
 
-                                @if ($errors->has('email'))
+                                @if ( isset($errors) && $errors->has('email'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>{{ isset($errors) && $errors->first('email') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                        <div class="form-group{{  isset($errors) &&  $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-4 control-label">密码</label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control" name="password" required>
 
-                                @if ($errors->has('password'))
+                                @if ( isset($errors) && $errors->has('password'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
+                                        <strong>{{ isset($errors) &&  $errors->first('password') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -76,30 +76,10 @@
 @endsection
 
 @push('pre_js')
-<style type="text/css">
-    .loginContainer {
-        display: table;
-        margin: 0 auto;
-    }
-
-    /*.loginBox {*/
-    /*width: 450px;*/
-    /*padding: 0 20px;*/
-    /*border: 1px solid #aaa;*/
-    /*color: #000;*/
-    /*border-radius: 6px;*/
-    /*background: white;*/
-    /*box-shadow: 0 0 12px #222;*/
-    /*background: -moz-linear-gradient(top, #fff, #efefef 8%);*/
-    /*background: -webkit-gradient(linear, 0 0, 0 100%, from(#f6f6f6), to(#f4f4f4));*/
-    /*font: 11px/1.5em 'Microsoft YaHei';*/
-    /*behavior: url(/PIE.htc);*/
-    /*}*/
-
-    /*.loginBox .left {*/
-    /*border-right: 1px solid #ccc;*/
-    /*height: 100%;*/
-    /*padding-right: 20px;*/
-    /*}*/
-</style>
+    <style type="text/css">
+        .loginContainer {
+            display: table;
+            margin: 0 auto;
+        }
+    </style>
 @endpush
