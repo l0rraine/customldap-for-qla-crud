@@ -16,7 +16,7 @@
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('Crud.Admin.login') }}">
                         {{ csrf_field() }}
 
-                        <div class="form-group{{ isset($errors) && $errors->has('email') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">中石化邮箱</label>
 
                             <div class="col-md-6">
@@ -27,23 +27,23 @@
                                         .com</span>
                                 </div>
 
-                                @if ( isset($errors) && $errors->has('email'))
+                                @if ( $errors->has('email'))
                                     <span class="help-block">
-                                        <strong>{{ isset($errors) && $errors->first('email') }}</strong>
+                                        <strong>{{ $errors->first('email') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
 
-                        <div class="form-group{{  isset($errors) &&  $errors->has('password') ? ' has-error' : '' }}">
+                        <div class="form-group{{  $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-4 control-label">密码</label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control" name="password" required>
 
-                                @if ( isset($errors) && $errors->has('password'))
+                                @if ( $errors->has('password'))
                                     <span class="help-block">
-                                        <strong>{{ isset($errors) &&  $errors->first('password') }}</strong>
+                                        <strong>{{ $errors->first('password') }}</strong>
                                     </span>
                                 @endif
                             </div>

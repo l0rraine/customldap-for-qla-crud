@@ -34,7 +34,7 @@ class LdapLoginServiceProvider extends AdldapAuthServiceProvider
 
         // Add publishable configuration.
         $this->publishes([
-            __DIR__ . '/config/qla' => config_path('qla'),
+            __DIR__ . '/config/qla'      => config_path('qla'),
             __DIR__ . '/resources/views' => resource_path('views/vendor/qla/ldaplogin'),
         ], 'qla');
 
@@ -61,13 +61,15 @@ class LdapLoginServiceProvider extends AdldapAuthServiceProvider
 
 
         $group = [
-            'namespace' => 'Qla\LdapLogin\app\Http\Controllers',
-            'prefix' => config('qla.adminpanel.url_prefix')];
+            'namespace'  => 'Qla\LdapLogin\app\Http\Controllers',
+            'prefix'     => config('qla.adminpanel.url_prefix'),
+            'middleware' => 'web',
+        ];
 
 
         \Route::group($group, function () {
             \Route::get('login', 'LoginController@showLoginForm')
-                ->middleware('admin.referer','web')
+                ->middleware('admin.referer', 'web')
                 ->name('Crud.Admin.login');
 
             \Route::post('login', 'LoginController@login');
@@ -103,7 +105,7 @@ class LdapLoginServiceProvider extends AdldapAuthServiceProvider
      * Returns a new Adldap user provider.
      *
      * @param Hasher $hasher
-     * @param array $config
+     * @param array  $config
      *
      * @return \Illuminate\Contracts\Auth\UserProvider
      *
